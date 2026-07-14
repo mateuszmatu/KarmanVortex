@@ -2,7 +2,7 @@
 #include "KarmanVortex.hpp"
 
 int main() {
-    double h = 0.1; // Example grid spacing
+    double h = 1; // Example grid spacing
     KarmanVortex vortex(h);
     vortex.initialize();
 
