@@ -3,7 +3,8 @@
 
 int main() {
     double h = 1; // Example grid spacing
-    KarmanVortex vortex(h);
+    int cr = 1;
+    KarmanVortex vortex(h, cr);
     vortex.initialize();
 
     // Additional code to run the simulation or display results
