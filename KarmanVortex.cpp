@@ -38,18 +38,30 @@ void KarmanVortex::Update() {
         for (int j = 1; j < M - 1; ++j) {
             double du_dx = (u[i+1][j] - u[i-1][j]) / (2 * h);
             double du_dy = (u[i][j+1] - u[i][j-1]) / (2 * h);
-            double advection = u[i][j] * du_dx + v[i][j] * du_dy;
+            double advectionU = u[i][j] * du_dx + v[i][j] * du_dy;
 
-            double pressure = 1/rho * (P[i+1][j] - P[i-1][j]) / (2 * h);
+            double pressureU = 1/rho * (P[i+1][j] - P[i-1][j]) / (2 * h);
 
             double du2_dx2 = (u[i+1][j] - 2 * u[i][j] + u[i-1][j]) / (h * h);
             double du2_dy2 = (u[i][j+1] - 2 * u[i][j] + u[i][j-1]) / (h * h);
-            double diffusion = visc * (du2_dx2 + du2_dy2);
+            double diffusionU = visc * (du2_dx2 + du2_dy2);
 
-            u_1[i][j] = u[i][j] + dt * (-advection - pressure + diffusion);
+            double dv_dx = (v[i+1][j] - v[i-1][j]) / (2 * h);
+            double dv_dy = (v[i][j+1] - v[i][j-1]) / (2 * h);
+            double advectionV = u[i][j] * dv_dx + v[i][j] * dv_dy;
+
+            double pressureV = 1/rho * (P[i][j+1] - P[i][j-1]) / (2 * h);
+
+            double dv2_dx2 = (v[i+1][j] - 2 * v[i][j] + v[i-1][j]) / (h * h);
+            double dv2_dy2 = (v[i][j+1] - 2 * v[i][j] + v[i][j-1]) / (h * h);
+            double diffusionV = visc * (dv2_dx2 + dv2_dy2);
+
+            u_1[i][j] = u[i][j] + dt * (-advectionU - pressureU + diffusionU);
+            v_1[i][j] = v[i][j] + dt * (-advectionV - pressureV + diffusionV);
         }
     }
     u = u_1;
+    v = v_1;
     SetInflowVelocity(U);
 }
 
