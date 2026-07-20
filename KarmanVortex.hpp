@@ -2,14 +2,18 @@
 #define __KarmanVortex_hpp__
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <cmath>
 
 class KarmanVortex {
 public:
-    KarmanVortex(double h_, int cr);
+    KarmanVortex(double h_, int T);
     void printGrid(const std::vector<std::vector<double>>& grid);
     void Update();
     void RunSimulation();
     void SetInflowVelocity(double velocity);
+    void save(const std::string& filename, const std::vector<std::vector<double>>& matrix);
+    void Cylinder();
 
 private:
     double h;
@@ -22,12 +26,13 @@ private:
     int T;
     int N;
     int M;
-    int cx;
-    int cy;
+    double cx;
+    double cy;
     double dt;
     double visc;
     double rho;
     double g;
     double P0;
+    double cr;
 };
 #endif // __KarmanVortex_hpp__

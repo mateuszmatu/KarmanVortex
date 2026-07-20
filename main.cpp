@@ -2,9 +2,9 @@
 #include "KarmanVortex.hpp"
 
 int main() {
-    double h = 1; // Example grid spacing
-    int cr = 1;
-    KarmanVortex vortex(h, cr);
+    double h = 0.1; // Example grid spacing
+    int T = 5000;
+    KarmanVortex vortex(h, T);
     vortex.RunSimulation();
 
     // Additional code to run the simulation or display results
